@@ -7,7 +7,7 @@ import { setProducts } from '../redux/productSlice'
 import CategorySection from '../assets/image/componets/CategorySection'
 import { useDispatch,useSelector } from 'react-redux'
 import Shop from './Shop'
-import Productcard from '../assets/image/componets/productcart'
+import Productcard from '../assets/image/componets/Productcart'
 import { Categories } from '../assets/image/Mockdata'
 
 

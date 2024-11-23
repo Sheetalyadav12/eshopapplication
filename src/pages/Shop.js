@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import Productcard from '../assets/image/componets/productcart'
+import Productcard from '../assets/image/componets/Productcart'
 function Shop() {
     const products = useSelector(state=>state.product)
   return (

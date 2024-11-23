@@ -1,9 +1,37 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import {FaSearch, FaShoppingCart, FaUser} from 'react-icons/fa'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import Model from './Model'
+import Login from './Login'
+import Registration from './Registration'
+import { setSearchTerm } from '../../../redux/productSlice'
 
 function Navbar() {
+    const [isModelOpen,setIsModelOpen]= useState(false)
+    const [isLogin,setIsLogin]= useState(true)
+    const[search,setSearch]= useState()
+    const dispatch = useDispatch()
+const navigate=useNavigate()
+
+
+    const openSignUp= ()=>{
+        setIsLogin(false)
+        setIsModelOpen(true)
+
+    }
+    const openLogin= ()=>{
+        setIsLogin(true)
+        setIsModelOpen(false)
+
+    }
+    const handleSearch =(e)=>{
+        e.preventDefault()
+        dispatch(setSearchTerm(search))
+        navigate('/filter.data')
+
+    }
+
     const products = useSelector(state =>state.cart.products)
   return (
     <nav className='bg=white shadow-md'>
@@ -12,8 +40,8 @@ function Navbar() {
                 <Link  to="/">e-Shop</Link>
             </div>
             <div className='relative flex-1 mx-4'>
-                <form>
-                    <input type='text' placeholder='search product' className='w-full border py-2 px-4'/>
+                <form onSubmit={handleSearch}>
+                    <input type='text' placeholder='search product' className='w-full border py-2 px-4' onChange={(e)=>setSearch(e.target.value)}/>
                     <FaSearch className='absolute top-3 right-3 text-red-500'></FaSearch>
                 </form>
             </div>
@@ -28,7 +56,7 @@ function Navbar() {
                 )}
                 
                 </Link>
-                <button className='hidden md:block'>
+                <button className='hidden md:block' onClick={()=>setIsModelOpen(true)}>
                     Login | Register
                 </button>
                 <button className='block md:hidden'>
@@ -42,11 +70,16 @@ function Navbar() {
             </Link>
             <Link  to="/shop" className='hover:underline'>Shop
             </Link>
-            <Link to="/"   className='hover:underline'>Contact
+            <Link to="/Contact"   className='hover:underline'>Contact
             </Link>
-             <Link  to="/" className='hover:underline'>About</Link>
+             <Link  to="/about" className='hover:underline'>About</Link>
+             {/* <Link  to="/login" className='hover:underline'>login</Link> */}
+
             
         </div>
+        <Model isModelOpen={isModelOpen}  setIsModelOpen={setIsModelOpen}>
+            {isLogin ? <Login openSignUp={openSignUp}/> :<Registration openLogin={openLogin}/>}
+        </Model>
 
     </nav>
   )

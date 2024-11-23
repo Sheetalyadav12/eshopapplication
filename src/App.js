@@ -9,6 +9,8 @@ import Checkout from './pages/Checkout';
 import { useState } from 'react';
 import Order from './pages/Order';
 import Navbar from './assets/image/componets/Navbar';
+import Filter from './pages/Filter';
+import ProductDetail from './pages/ProductDetail';
 
 function App() {
   const[order,setOrder] = useState(null)
@@ -21,6 +23,9 @@ function App() {
       <Route path='/cart'  element={<Cart/>}/>
       <Route path='/checkout'  element={<Checkout setOrder={setOrder}/>}/>
       {/* <Route path='/order-confirmation' element={<Order Checkout={Checkout}/>}/> */}
+      <Route path='/filter.data' element={<Filter/>}/>
+      <Route path='/product/:id' element={<ProductDetail/>}/>
+
 
       
 
